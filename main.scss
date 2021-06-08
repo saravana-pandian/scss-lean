@@ -1,0 +1,70 @@
+@import './resets.scss';
+
+@function weight($weight-name){
+    @return map-get($font-weights, $weight-name)
+}
+
+@mixin felxCenter($direction) {
+    justify-content: center;
+    align-items: center;
+    display: flex;
+    flex-direction: $direction;
+    
+}
+
+@mixin theme($light-theme: true) {
+    @if $light-theme {
+        background: lighten($pcolor, 100%);
+        color: darken($tcolor, 100%);
+    }
+}
+
+@mixin mobile {
+    @media (max-width: 800px){
+        @content;
+    }
+}
+
+$pcolor:#272727;
+$acolor:#ff652f;
+$tcolor:#fff;
+
+$font-weights:(
+    "regular": 400,
+    "mediun": 500,
+    "bold": 700
+);
+
+body{
+    background: $pcolor;
+    color: $tcolor;
+}
+
+.main{
+    @include felxCenter(row);
+    width: 100%-10%;
+    margin: 0 auto;
+    
+
+    #{&}_p1 {
+        font-weight: weight(bold);
+
+        &:hover{
+            color: pink;
+        }
+    }
+
+    #{&}_p2{
+        @extend .main_p1;
+        &:hover{
+            color: red;
+        }
+}
+
+    @include mobile{
+        flex-direction: column;
+    }
+}
+.light{
+    @include theme($light-theme: false);
+}
